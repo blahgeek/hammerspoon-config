@@ -1,7 +1,7 @@
 -- @Author: BlahGeek
 -- @Date:   2016-04-23
 -- @Last Modified by:   BlahGeek
--- @Last Modified time: 2016-04-24
+-- @Last Modified time: 2016-04-25
 
 local IMAGESNAP = "/usr/local/bin/imagesnap"
 local SELFIE_DIR = "/Users/BlahGeek/Pictures/selfie/"
@@ -37,12 +37,14 @@ function on_awake()
     lasttime_f:write(nowtime)
     lasttime_f:close()
 
-    hs.timer.doAfter(3, function() take_selfie(SELFIE_DIR .. nowtime .. ".jpg") end):start()
+    local timer = hs.timer.doAfter(3, function() take_selfie(SELFIE_DIR .. nowtime .. ".jpg") end)
+    timer:start()
 end
 
-hs.caffeinate.watcher.new(function(event)
-                            if event ~= hs.caffeinate.watcher.screensDidWake then
-                                return
-                            end
-                            on_awake()
-                          end):start()
+local watcher = hs.caffeinate.watcher.new(function(event)
+                                              if event ~= hs.caffeinate.watcher.screensDidWake then
+                                                  return
+                                              end
+                                              on_awake()
+                                          end)
+watcher:start()
