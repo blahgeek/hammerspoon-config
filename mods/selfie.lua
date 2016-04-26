@@ -1,7 +1,9 @@
 -- @Author: BlahGeek
 -- @Date:   2016-04-23
 -- @Last Modified by:   BlahGeek
--- @Last Modified time: 2016-04-25
+-- @Last Modified time: 2016-04-26
+
+local M = {}
 
 local IMAGESNAP = "/usr/local/bin/imagesnap"
 local SELFIE_DIR = "/Users/BlahGeek/Pictures/selfie/"
@@ -9,7 +11,7 @@ local SELFIE_MIN_INTERVAL = 3600 * 6
 
 local log = hs.logger.new('selfie', 'info')
 
-function take_selfie(filename)
+local function take_selfie(filename)
     log.i("Taking selfie to", filename)
     local proc = hs.task.new(IMAGESNAP, nil, 
                              (function(_, _, _) return true end), 
@@ -19,7 +21,7 @@ function take_selfie(filename)
     log.i("...done")
 end
 
-function on_awake()
+local function on_awake()
     local nowtime = os.time()
     log.i("On awake, now is", nowtime)
     local lasttime_f = io.open(SELFIE_DIR .. ".lasttime")
@@ -37,14 +39,16 @@ function on_awake()
     lasttime_f:write(nowtime)
     lasttime_f:close()
 
-    local timer = hs.timer.doAfter(3, function() take_selfie(SELFIE_DIR .. nowtime .. ".jpg") end)
-    timer:start()
+    M.timer = hs.timer.doAfter(3, function() take_selfie(SELFIE_DIR .. nowtime .. ".jpg") end)
+    M.timer:start()
 end
 
-local watcher = hs.caffeinate.watcher.new(function(event)
-                                              if event ~= hs.caffeinate.watcher.screensDidWake then
-                                                  return
-                                              end
-                                              on_awake()
-                                          end)
-watcher:start()
+M.watcher = hs.caffeinate.watcher.new(function(event)
+                                          if event ~= hs.caffeinate.watcher.screensDidWake then
+                                              return
+                                          end
+                                          on_awake()
+                                      end)
+M.watcher:start()
+
+return M
