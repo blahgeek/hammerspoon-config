@@ -1,9 +1,9 @@
 -- @Author: BlahGeek
 -- @Date:   2016-04-29
 -- @Last Modified by:   BlahGeek
--- @Last Modified time: 2016-05-05
+-- @Last Modified time: 2016-05-29
 
-M = {}
+local M = {}
 
 M.MARK_TAG = '灰色'
 M.FILENAME_KEYWORD = '屏幕快照'
