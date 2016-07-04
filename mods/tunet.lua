@@ -1,14 +1,12 @@
 -- @Author: BlahGeek
 -- @Date:   2016-05-29
 -- @Last Modified by:   BlahGeek
--- @Last Modified time: 2016-05-29
+-- @Last Modified time: 2016-07-04
 
 
 local M = {}
 
 local LOGIN_URL = "http://net.tsinghua.edu.cn/do_login.php"
-local LOGIN_USERNAME = "zhaoyk15"
-local LOGIN_PASSWD = "{MD5_HEX}" .. hs.settings.get("TUNET_PASSWD")
 local LOGIN_UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_4)'
 
 local LOGO = '/Users/BlahGeek/.hammerspoon/mods/images/tunet.png'
@@ -64,18 +62,23 @@ M.do_login = function()
     M.log.i("Do login...")
     hs.http.asyncPost(LOGIN_URL,
                       string.format("username=%s&password=%s&ac_id=1&action=login",
-                                    LOGIN_USERNAME, LOGIN_PASSWD),
+                                    M.USERNAME, M.PASSWD),
                       { ['User-Agent'] = LOGIN_UA }, M.login_callback)
 end
 
-M.network_watcher = hs.network.reachability.forAddress('166.111.204.120')
-M.network_watcher:setCallback(function(self, flags)
-    if (flags & hs.network.reachability.flags.reachable) > 0 then
-        M.do_login()
+M.init = function(options)
+    M.USERNAME = options.username
+    M.PASSWD = options.passwd
+    if options.enable_watcher then
+        M.network_watcher = hs.network.reachability.forAddress('166.111.204.120')
+        M.network_watcher:setCallback(function(self, flags)
+            if (flags & hs.network.reachability.flags.reachable) > 0 then
+                M.do_login()
+            end
+        end)
+        M.network_watcher:start()
     end
-end)
-M.network_watcher:start()
-
-BIND("tunet_login", "Tunet Login", M.do_login)
+    BIND("tunet_login", "Tunet Login", M.do_login)
+end
 
 return M

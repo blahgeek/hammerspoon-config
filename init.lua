@@ -1,7 +1,7 @@
 -- @Author: BlahGeek
 -- @Date:   2016-02-18
 -- @Last Modified by:   BlahGeek
--- @Last Modified time: 2016-05-29
+-- @Last Modified time: 2016-07-04
 
 -- watcher = hs.pathwatcher.new(os.getenv("HOME") .. "/.hammerspoon/",
 --                              (function(files)
@@ -19,17 +19,13 @@ end
 
 ----------------
 
-MODS = {
-    "force_paste",
-    "selfie",
-    "yoink",
-    "tunet",
-}
+CONFIG = require "config"
 
 _MODS_TABLE = {}
 
-for _, v in pairs(MODS) do
-    _MODS_TABLE[v] = require("mods." .. v)
+for mod, opts in pairs(CONFIG) do
+    _MODS_TABLE[mod] = require("mods." .. mod)
+    _MODS_TABLE[mod].init(opts)
 end
 
 ----------------
