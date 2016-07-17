@@ -1,7 +1,7 @@
 -- @Author: BlahGeek
 -- @Date:   2016-07-04
 -- @Last Modified by:   BlahGeek
--- @Last Modified time: 2016-07-04
+-- @Last Modified time: 2016-07-17
 
 
 CONFIG = {
@@ -20,6 +20,10 @@ CONFIG = {
         app = 'Dropshelf',
         keyword = '屏幕快照',
         dir = os.getenv("HOME") .. "/Desktop",
+    },
+    wallpaper = {
+        dir = '/Users/BlahGeek/Sync/himawari/',
+        interval = 60 * 10,
     },
 }
 
