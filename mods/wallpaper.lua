@@ -1,7 +1,7 @@
 -- @Author: BlahGeek
 -- @Date:   2016-07-17
 -- @Last Modified by:   BlahGeek
--- @Last Modified time: 2016-07-17
+-- @Last Modified time: 2016-07-20
 
 
 local M = {}
@@ -33,8 +33,16 @@ function M.init(options)
     M.DIR = options.dir
     BIND("wallpaper", "Update Wallpaper", M.find_and_set)
 
-    M.timer = hs.timer.new(options.interval, M.find_and_set)
-    M.timer:start()
+    M.space_watcher = hs.spaces.watcher.new((function(space_n)
+        if M.timer ~= nil and M.timer:running() then
+            M.timer:stop()
+            M.timer = nil
+        end
+        M.timer = hs.timer.doAfter(3, M.find_and_set)
+    end))
+    M.space_watcher:start()
+
+    M.find_and_set()
 end
 
 return M
