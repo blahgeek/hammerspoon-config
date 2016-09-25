@@ -1,7 +1,7 @@
 -- @Author: BlahGeek
 -- @Date:   2016-07-04
 -- @Last Modified by:   BlahGeek
--- @Last Modified time: 2016-07-17
+-- @Last Modified time: 2016-09-22
 
 
 CONFIG = {
@@ -18,13 +18,18 @@ CONFIG = {
     drop = {
         tag = '灰色',
         app = 'Dropshelf',
-        keyword = '屏幕快照',
+        keyword = 'Screen Shot',
         dir = os.getenv("HOME") .. "/Desktop",
     },
-    wallpaper = {
-        dir = '/Users/BlahGeek/Sync/himawari/',
-        interval = 60 * 10,
+    caps_remap = {
+        timeout = 0.15,
+        key = "ctrl",
+        action = function() hs.eventtap.keyStroke({}, "f19") end,
     },
+    -- wallpaper = {
+    --     dir = '/Users/BlahGeek/Sync/himawari/',
+    --     interval = 60 * 10,
+    -- },
 }
 
 return CONFIG
