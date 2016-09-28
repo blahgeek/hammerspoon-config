@@ -1,7 +1,7 @@
 -- @Author: BlahGeek
 -- @Date:   2016-07-04
 -- @Last Modified by:   BlahGeek
--- @Last Modified time: 2016-09-22
+-- @Last Modified time: 2016-09-28
 
 
 CONFIG = {
@@ -25,6 +25,10 @@ CONFIG = {
         timeout = 0.15,
         key = "ctrl",
         action = function() hs.eventtap.keyStroke({}, "f19") end,
+    },
+    imlight = {
+        setleds = '/Users/BlahGeek/.local/bin/setleds',
+        delay = 0.05,
     },
     -- wallpaper = {
     --     dir = '/Users/BlahGeek/Sync/himawari/',
