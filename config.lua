@@ -1,18 +1,13 @@
 -- @Author: BlahGeek
 -- @Date:   2016-07-04
 -- @Last Modified by:   BlahGeek
--- @Last Modified time: 2016-09-28
+-- @Last Modified time: 2018-05-08
 
 
 CONFIG = {
-    tunet = {
-        enable_watcher = false,
-        username = "zhaoyk15",
-        passwd = "{MD5_HEX}" .. hs.settings.get("TUNET_PASSWD"),
-    },
     force_paste = {},
     selfie = {
-        dir = "/Users/BlahGeek/Archive/Selfie/",
+        dir = "/Users/blahgeek/Documents/Selfie/",
         interval = 3600 * 6,
     },
     drop = {
