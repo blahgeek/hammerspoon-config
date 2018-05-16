@@ -12,7 +12,7 @@ function M.input_and_paste()
 end
 
 function M.init(options)
-    hs.hotkey.bind({"cmd", "alt"}, "P", M.input_and_paste)
+    hs.hotkey.bind(options.modkey, "P", M.input_and_paste)
     BIND("input_and_paste", "Prompt for input and Paste", M.input_and_paste)
 end
 
