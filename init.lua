@@ -1,7 +1,7 @@
 -- @Author: BlahGeek
 -- @Date:   2016-02-18
 -- @Last Modified by:   BlahGeek
--- @Last Modified time: 2018-05-16
+-- @Last Modified time: 2018-05-21
 
 -- watcher = hs.pathwatcher.new(os.getenv("HOME") .. "/.hammerspoon/",
 --                              (function(files)
@@ -32,16 +32,4 @@ end
 
 for k, v in pairs(_BIND_TABLE) do
     hs.urlevent.bind(k, v.fn)
-end
-
-hs.ipc.handler = function(cmd)
-    local action = _BIND_TABLE[cmd]
-    if action ~= nil then
-        return action.fn()
-    end
-    local ret = {}
-    for k, v in pairs(_BIND_TABLE) do
-        ret[k] = v.name
-    end
-    return hs.json.encode(ret)
 end
