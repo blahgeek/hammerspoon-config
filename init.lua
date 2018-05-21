@@ -10,6 +10,8 @@
 --                               end))
 -- watcher:start()
 --
+require('hs.ipc')
+require('hs.eventtap')
 
 _BIND_TABLE = {}
 
