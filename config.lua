@@ -1,7 +1,7 @@
 -- @Author: BlahGeek
 -- @Date:   2016-07-04
 -- @Last Modified by:   BlahGeek
--- @Last Modified time: 2018-05-16
+-- @Last Modified time: 2018-05-21
 
 local modkey = {"cmd", "alt", "ctrl", "shift"}
 
@@ -22,6 +22,7 @@ local config = {
         keyword = 'Screen Shot',
         dir = os.getenv("HOME") .. "/Desktop",
     },
+    imswitch = {},
     -- caps_remap = {
     --     timeout = 0.15,
     --     key = "ctrl",
