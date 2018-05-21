@@ -3,7 +3,7 @@
 -- @Last Modified by:   BlahGeek
 -- @Last Modified time: 2018-05-21
 
-local modkey = {"cmd", "alt", "ctrl", "shift"}
+local modkey = {"cmd", "ctrl"}
 
 local config = {
     force_paste = {
@@ -23,15 +23,15 @@ local config = {
         dir = os.getenv("HOME") .. "/Desktop",
     },
     imswitch = {},
-    -- caps_remap = {
-    --     timeout = 0.15,
-    --     key = "ctrl",
-    --     action = function() hs.eventtap.keyStroke({}, "f19") end,
-    -- },
-    -- imlight = {
-    --     setleds = '/Users/BlahGeek/.local/bin/setleds',
-    --     delay = 0.05,
-    -- },
+    caps_remap = {
+        timeout = 0.15,
+        key = "ctrl",
+        action = function() hs.eventtap.keyStroke({}, "f19", 0) end,
+    },
+    imlight = {
+        setleds = '/Users/BlahGeek/.local/bin/setleds',
+        delay = 0.05,
+    },
     -- wallpaper = {
     --     dir = '/Users/BlahGeek/Sync/himawari/',
     --     interval = 60 * 10,
