@@ -1,19 +1,21 @@
 -- @Author: BlahGeek
 -- @Date:   2016-04-23
 -- @Last Modified by:   BlahGeek
--- @Last Modified time: 2016-07-04
+-- @Last Modified time: 2018-06-03
 
 local M = {}
 
-local IMAGESNAP = "/usr/local/bin/imagesnap"
+local IMAGESNAP = "/opt/local/bin/ffmpeg"
 
 M.log = hs.logger.new('selfie', 'info')
 
 local function take_selfie(filename)
     M.log.i("Taking selfie to", filename)
     local proc = hs.task.new(IMAGESNAP, nil,
-                             (function(_, _, _) return true end),
-                             {"-w", "1", filename})
+        (function(_, _, _) return true end),
+        {"-f", "avfoundation", "-video_size", "1280x720", "-framerate", "30",
+         "-pixel_format", "yuyv422", "-i", "0:", "-frames:v", "1",
+         "-y", filename})
     proc:start()
     proc:waitUntilExit()
     M.log.i("...done")
