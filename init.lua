@@ -1,7 +1,7 @@
 -- @Author: BlahGeek
 -- @Date:   2016-02-18
 -- @Last Modified by:   BlahGeek
--- @Last Modified time: 2018-05-21
+-- @Last Modified time: 2018-06-14
 
 -- watcher = hs.pathwatcher.new(os.getenv("HOME") .. "/.hammerspoon/",
 --                              (function(files)
@@ -12,26 +12,34 @@
 --
 require('hs.ipc')
 require('hs.eventtap')
+require('hs.spoons')
 
-_BIND_TABLE = {}
+spoon = {}
 
-BIND = function(id, name, fn)
-    _BIND_TABLE[id] = {name = name, fn = fn}
-end
+hs.spoons.use('ModsKeybind', {
+        config = {
+            timeout = 0.15,
+            key = "ctrl",
+            action = function() hs.eventtap.keyStroke({}, "f19", 0) end,
+        },
+        start = true,
+    })
 
-----------------
+hs.spoons.use('IMLight', {
+        config = {
+            delay = 0.05,
+            im_name = '搜狗拼音',
+        },
+        start = true,
+    })
 
-local config = require "config"
+hs.spoons.use('DailySelfie', {
+        config = {
+            dir = "/Users/blahgeek/Documents/Selfie/",
+            interval = 3600 * 6,
+        },
+        start = true,
+    })
 
-_MODS_TABLE = {}
-
-for mod, opts in pairs(config) do
-    _MODS_TABLE[mod] = require("mods." .. mod)
-    _MODS_TABLE[mod].init(opts)
-end
-
-----------------
-
-for k, v in pairs(_BIND_TABLE) do
-    hs.urlevent.bind(k, v.fn)
-end
+hs.hotkey.bind({'cmd', 'ctrl'}, 'V',
+    function() hs.eventtap.keyStrokes(hs.pasteboard.getContents()) end)
