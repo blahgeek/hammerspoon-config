@@ -22,7 +22,7 @@ obj.logger = hs.logger.new('IMLight')
 obj.im_name = '搜狗拼音'
 obj.delay = 0.1
 
-local setleds = hs.spoons.resource_path("setleds")
+local setleds = hs.spoons.resourcePath("setleds")
 
 function obj:callback()
     local im = hs.keycodes.currentMethod()

@@ -31,24 +31,24 @@ function obj:take_selfie(filename)
          "-y", filename})
     proc:start()
     proc:waitUntilExit()
-    self.log.i("...done")
+    self.logger.i("...done")
 end
 
 
 function obj:on_awake()
     local nowtime = os.time()
-    self.log.i("On awake, now is", nowtime)
+    self.logger.i("On awake, now is", nowtime)
     local lasttime_f = io.open(self.dir .. ".lasttime")
     if lasttime_f ~= nil then
         local lasttime = lasttime_f:read("n")
         lasttime_f:close()
         if lasttime ~= nil and lasttime + self.interval > nowtime then
-            self.log.i("Skip this awake")
+            self.logger.i("Skip this awake")
             return
         end
     end
 
-    self.log.i("Updating lasttime")
+    self.logger.i("Updating lasttime")
     lasttime_f = io.open(dir .. ".lasttime", "w")
     lasttime_f:write(nowtime)
     lasttime_f:close()
