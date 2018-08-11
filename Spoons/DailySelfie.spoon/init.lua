@@ -49,7 +49,7 @@ function obj:on_awake()
     end
 
     self.logger.i("Updating lasttime")
-    lasttime_f = io.open(dir .. ".lasttime", "w")
+    lasttime_f = io.open(self.dir .. ".lasttime", "w")
     lasttime_f:write(nowtime)
     lasttime_f:close()
 
