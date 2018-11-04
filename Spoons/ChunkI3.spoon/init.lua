@@ -10,8 +10,8 @@ obj.logger = hs.logger.new('ChunkI3')
 obj._hotkeys = {}
 
 obj.chunkc = '/usr/local/bin/chunkc'
-obj.mod = {'ctrl', 'cmd'}
-obj.mod_alt = {'ctrl', 'cmd', 'alt'}
+obj.mod = {'alt'}
+obj.mod_alt = {'alt', 'shift'}
 obj.status_update_interval = 2
 
 function obj:_bind(key, use_alt, cmd)
@@ -61,6 +61,10 @@ function obj:start()
     self:_bind('j', false, {'tiling::window', '--focus', 'south'})
     self:_bind('k', false, {'tiling::window', '--focus', 'north'})
     self:_bind('l', false, {'tiling::window', '--focus', 'east'})
+
+    self:_bind('g', true, {'tiling::desktop', '--rotate', '90'})
+    self:_bind('t', false, {'tiling::desktop', '--layout', 'bsp'})
+    self:_bind('e', false, {'tiling::desktop', '--layout', 'float'})
 
     self:_bind('h', true, {'tiling::window', '--warp', 'west'})
     self:_bind('j', true, {'tiling::window', '--warp', 'south'})
